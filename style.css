@@ -26,4 +26,13 @@ body{background-color: blueviolet}
     border: 5px solid #e7d7bf;
     margin: 0 2rem;
 }
-
+img{
+    width: 30%;
+}
+.img__area{
+    display: flex;
+    justify-content: space-between;
+}
+#secondPlayer{
+    transform: scale(-1,1);
+}

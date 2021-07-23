@@ -6,7 +6,9 @@ let enemyChose = ''
 let playerChose = ''
 solo.addEventListener("click", soloGame)
 duo.addEventListener("click", duoGame)
-
+let imgSecondPlayer = document.getElementById('firstPlayer')
+let firstPlayerImg
+let imgArea = document.getElementById("imgArea")
 function soloGame() {
     enemyChose = Math.round(Math.random() * (3 - 1) + 1)
     switch (enemyChose) {
@@ -29,6 +31,7 @@ function soloGame() {
 
     }
 }
+
 function yourChose() {
     playerChose = this.innerHTML
     console.log(playerChose)
@@ -70,6 +73,8 @@ function duoGame() {
 
 function firstPlayerChose() {
     enemyChose = this.innerHTML
+    firstPlayerImg = document.createElement('img')
+    firstPlayerImg.src = 'img/' + this.innerHTML + '.png'
     console.log(enemyChose)
     for (k = 0; k < btn.length; k++) {
         btn[k].removeEventListener('click', firstPlayerChose)
@@ -79,6 +84,10 @@ function firstPlayerChose() {
 
 function secondPlayerChose() {
     playerChose = this.innerHTML
+
+    imgArea.appendChild(firstPlayerImg)
+    imgSecondPlayer.src = 'img/' + this.innerHTML + '.png'
+
     console.log(playerChose)
     if (playerChose == enemyChose) {
         alert('draw')
@@ -103,8 +112,8 @@ function secondPlayerChose() {
                 break
         }
     }
-    for(i=0;i<btn.length;i++){
-        btn[i].removeEventListener('click',secondPlayerChose)
+    for (i = 0; i < btn.length; i++) {
+        btn[i].removeEventListener('click', secondPlayerChose)
     }
     enemyChose = ''
     playerChose = ''
