@@ -6,11 +6,14 @@ let enemyChose = ''
 let playerChose = ''
 solo.addEventListener("click", soloGame)
 duo.addEventListener("click", duoGame)
-let imgSecondPlayer = document.getElementById('firstPlayer')
-let firstPlayerImg
-let imgArea = document.getElementById("imgArea")
+let firstPlayerImg = document.getElementById('firstPlayerImg')
+let secondPlayerImg = document.getElementById('secondPlayerImg')
+let firstPlayerScore = document.getElementById('firstPlayerScore')
+let secondPlayerScore = document.getElementById('secondPlayerScore')
+let indicator = document.getElementById('indicator')
+
 function soloGame() {
-    enemyChose = Math.round(Math.random() * (3 - 1) + 1)
+    enemyChose = Math.floor(Math.random() * (4 - 1) + 1)
     switch (enemyChose) {
         case 1:
             enemyChose = 'Rock'
@@ -21,94 +24,108 @@ function soloGame() {
         case 3:
             enemyChose = 'Scissors'
             break
-
     }
     solo.style.display = 'none'
     duo.style.display = 'none'
     for (i = 0; i < btn.length; i++) {
         btn[i].style.display = 'block'
-        btn[i].addEventListener('click', yourChose)
-
+        btn[i].addEventListener('click', yourChoseSolo)
     }
 }
 
-function yourChose() {
+function yourChoseSolo() {
     playerChose = this.innerHTML
-    console.log(playerChose)
+    secondPlayerImg.src = 'img/' + this.innerHTML + '.png'
+    firstPlayerImg.src = 'img/' + enemyChose + '.png'
+    playerChose = this.innerHTML
     if (playerChose == enemyChose) {
-        alert('draw')
     } else {
         switch (playerChose) {
             case 'Rock':
                 if (enemyChose == 'Scissors') {
-                    alert('You win! Enemy chose: ' + enemyChose)
-                } else (alert('You lose. Enemy chose: ' + enemyChose))
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
             case 'Paper':
-                if (enemyChose == 'Rock')
-                    alert('You win! Enemy chose: ' + enemyChose)
-                else
-                    (alert('You lose. Enemy chose: ' + enemyChose))
+                if (enemyChose == 'Rock') {
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
             case 'Scissors':
-                if (enemyChose == 'Paper')
-                    alert('You win! Enemy chose: ' + enemyChose)
-                else
-                    (alert('You lose. Enemy chose: ' + enemyChose))
+                if (enemyChose == 'Paper') {
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
         }
     }
     soloGame()
 }
 
+
+//------------------------------------------------//
 function duoGame() {
     solo.style.display = 'none'
     duo.style.display = 'none'
     for (i = 0; i < btn.length; i++) {
         btn[i].style.display = 'block'
         btn[i].addEventListener('click', firstPlayerChose)
-
     }
 }
 
 function firstPlayerChose() {
     enemyChose = this.innerHTML
-    firstPlayerImg = document.createElement('img')
-    firstPlayerImg.src = 'img/' + this.innerHTML + '.png'
-    console.log(enemyChose)
-    for (k = 0; k < btn.length; k++) {
-        btn[k].removeEventListener('click', firstPlayerChose)
-        btn[k].addEventListener('click', secondPlayerChose)
+    for (i = 0; i < btn.length; i++) {
+        btn[i].removeEventListener('click', firstPlayerChose)
+        btn[i].addEventListener('click', secondPlayerChose)
     }
 }
 
 function secondPlayerChose() {
+    firstPlayerImg.src = 'img/' + enemyChose + '.png'
     playerChose = this.innerHTML
-
-    imgArea.appendChild(firstPlayerImg)
-    imgSecondPlayer.src = 'img/' + this.innerHTML + '.png'
-
-    console.log(playerChose)
+    secondPlayerImg.src = 'img/' + this.innerHTML + '.png'
     if (playerChose == enemyChose) {
-        alert('draw')
+        indicator.innerHTML = 'DRAW'
     } else {
         switch (playerChose) {
             case 'Rock':
                 if (enemyChose == 'Scissors') {
-                    alert('You win! Enemy chose: ' + enemyChose)
-                } else (alert('You lose. Enemy chose: ' + enemyChose))
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
             case 'Paper':
-                if (enemyChose == 'Rock')
-                    alert('You win! Enemy chose: ' + enemyChose)
-                else
-                    (alert('You lose. Enemy chose: ' + enemyChose))
+                if (enemyChose == 'Rock') {
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
             case 'Scissors':
-                if (enemyChose == 'Paper')
-                    alert('You win! Enemy chose: ' + enemyChose)
-                else
-                    (alert('You lose. Enemy chose: ' + enemyChose))
+                if (enemyChose == 'Paper') {
+                    indicator.innerHTML = '=>'
+                    secondPlayerScore.innerHTML = +secondPlayerScore.innerHTML + 1
+                } else {
+                    indicator.innerHTML = '<='
+                    firstPlayerScore.innerHTML = +firstPlayerScore.innerHTML + 1
+                }
                 break
         }
     }
@@ -118,5 +135,4 @@ function secondPlayerChose() {
     enemyChose = ''
     playerChose = ''
     duoGame()
-
 }
